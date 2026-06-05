@@ -63,7 +63,11 @@ import {
     EKS_KUBECTL_SECURITY_GROUP_ID_EXPORT_NAME,
     EKS_KUBECTL_LAMBDA_ROLE_ARN_EXPORT_NAME,
 } from '../../bin/constants';
-import { CUSTOM_ENABLE_GUARDDUTY_EKS_ADDON, EKS_CLUSTER_ACCESS_ROLE_NAME } from '../../bin/environment';
+import {
+    CUSTOM_ENABLE_GUARDDUTY_EKS_ADDON,
+    CUSTOM_ENABLE_ZEUS,
+    EKS_CLUSTER_ACCESS_ROLE_NAME,
+} from '../../bin/environment';
 
 /** Properties for the EKS cluster construct. */
 export interface EksProperties {
@@ -185,7 +189,8 @@ export class WorkshopEks extends Construct {
         // Custom CloudWatch agent configuration for Application Signals service name mapping
         // Note: When providing ConfigurationValues, we must include the full config structure
         // as it replaces (not merges with) the default configuration
-        const cloudwatchConfig = {
+        const cloudwatchConfig: Record<string, unknown> = {
+            otelContainerInsights: { enabled: true },
             agent: {
                 config: {
                     logs: {
@@ -221,7 +226,6 @@ export class WorkshopEks extends Construct {
                             },
                             kubernetes: {
                                 cluster_name: this.cluster.clusterName,
-                                enhanced_container_insights: true,
                             },
                         },
                     },
@@ -233,6 +237,18 @@ export class WorkshopEks extends Construct {
                 },
             },
         };
+
+        // Zeus OTLP metrics export — sends Container Insights metrics to the CloudWatch OTLP endpoint
+        if (CUSTOM_ENABLE_ZEUS) {
+            const agentConfig = (cloudwatchConfig.agent as Record<string, Record<string, unknown>>).config;
+            agentConfig.metrics = {
+                metrics_collected: {
+                    otlp: {
+                        metrics_endpoint: `https://monitoring.${Stack.of(this).region}.amazonaws.com:443`,
+                    },
+                },
+            };
+        }
 
         cfnCloudWatchAddon.addPropertyOverride('ConfigurationValues', JSON.stringify(cloudwatchConfig));
 

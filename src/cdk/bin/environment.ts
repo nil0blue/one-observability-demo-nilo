@@ -333,6 +333,7 @@ export const CUSTOM_ENABLE_GUARDDUTY_EKS_ADDON = process.env.CUSTOM_ENABLE_GUARD
 export const CUSTOM_ENABLE_NETWORKING_TRAIL = process.env.CUSTOM_ENABLE_NETWORKING_TRAIL == 'true' || false;
 export const EKS_CLUSTER_ACCESS_ROLE_NAME = process.env.EKS_CLUSTER_ACCESS_ROLE_NAME || undefined;
 export const CUSTOM_ENABLE_SLO = process.env.CUSTOM_ENABLE_SLO == 'true' || false;
+export const CUSTOM_ENABLE_ZEUS = process.env.CUSTOM_ENABLE_ZEUS == 'true' || false;
 
 /**
  * This section contains values that will affect the workshop deployment
