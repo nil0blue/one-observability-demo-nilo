@@ -186,6 +186,7 @@ export class WorkshopEks extends Construct {
         // Note: When providing ConfigurationValues, we must include the full config structure
         // as it replaces (not merges with) the default configuration
         const cloudwatchConfig: Record<string, unknown> = {
+            otelContainerInsights: { enabled: true },
             agent: {
                 config: {
                     logs: {
@@ -221,7 +222,6 @@ export class WorkshopEks extends Construct {
                             },
                             kubernetes: {
                                 cluster_name: this.cluster.clusterName,
-                                enhanced_container_insights: true,
                             },
                         },
                     },
