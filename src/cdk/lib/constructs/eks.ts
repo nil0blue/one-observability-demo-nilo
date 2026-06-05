@@ -63,7 +63,11 @@ import {
     EKS_KUBECTL_SECURITY_GROUP_ID_EXPORT_NAME,
     EKS_KUBECTL_LAMBDA_ROLE_ARN_EXPORT_NAME,
 } from '../../bin/constants';
-import { CUSTOM_ENABLE_GUARDDUTY_EKS_ADDON, CUSTOM_ENABLE_ZEUS, EKS_CLUSTER_ACCESS_ROLE_NAME } from '../../bin/environment';
+import {
+    CUSTOM_ENABLE_GUARDDUTY_EKS_ADDON,
+    CUSTOM_ENABLE_ZEUS,
+    EKS_CLUSTER_ACCESS_ROLE_NAME,
+} from '../../bin/environment';
 
 /** Properties for the EKS cluster construct. */
 export interface EksProperties {
