@@ -16,19 +16,20 @@ flowchart TD
     EB --> StockProcessor["Stock Processor λ"]
     EB --> ImageGen["Image Generator λ"]
     PetList --> Aurora["Aurora PostgreSQL"]
+    PayFor --> Aurora
     PayFor --> DynamoDB["DynamoDB"]
     PetFood --> DynamoDB
-    PetSearch --> Aurora
+    PetSearch --> DynamoDB
 ```
 
 ## Services at a Glance
 
 | Service | Language | Platform | Observability | Description |
 |---------|----------|----------|---------------|-------------|
-| [`payforadoption-go`](payforadoption-go.md) | Go | ECS Fargate | OTel Go SDK + ADOT sidecar | Payment processing |
+| [`payforadoption-go`](payforadoption-go.md) | Go | ECS Fargate | OTel Go SDK + CloudWatch agent | Payment processing |
 | [`petsearch-java`](petsearch-java.md) | Java/Spring Boot | ECS Fargate | Application Signals | Pet search |
 | [`petlistadoptions-py`](petlistadoptions-py.md) | Python/FastAPI | ECS Fargate | ADOT auto-instrumentation | Pet listing and adoptions |
-| [`petsite-net`](petsite-net.md) | .NET | EKS Fargate | CloudWatch agent | Web frontend |
+| [`petsite-net`](petsite-net.md) | .NET | EKS | CloudWatch agent | Web frontend |
 | [`petfood-rs`](petfood-rs.md) | Rust/Axum | ECS Fargate | OTel Rust SDK + Prometheus | Food catalog and cart |
 | [`petfoodagent-strands-py`](petfoodagent-strands-py.md) | Python/Strands | Bedrock AgentCore | AI agent | Food recommendations |
 
