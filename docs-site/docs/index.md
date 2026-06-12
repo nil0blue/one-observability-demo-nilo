@@ -47,7 +47,7 @@ The One Observability Demo deploys a pet adoption store with these components:
 | `payforadoption-go` | Go | ECS Fargate | OpenTelemetry Go SDK |
 | `petlistadoptions-py` | Python/FastAPI | ECS Fargate | ADOT auto-instrumentation |
 | `petsearch-java` | Java/Spring Boot | ECS Fargate | Application Signals |
-| `petsite-net` | .NET | EKS Fargate | CloudWatch agent |
+| `petsite-net` | .NET | EKS | CloudWatch agent |
 | `petfood-rs` | Rust/Axum | ECS Fargate | OpenTelemetry Rust SDK |
 | `petfoodagent-strands-py` | Python/Strands | Bedrock AgentCore | AI agent instrumentation |
 
